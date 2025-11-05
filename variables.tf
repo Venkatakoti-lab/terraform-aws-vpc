@@ -8,7 +8,7 @@ variable "vpc_cidr" {
 
 }
 variable "enable_dns_hostnames" {
-    type = bool
+  type    = bool
   default = true
 }
 variable "common_tags" {
@@ -17,5 +17,10 @@ variable "common_tags" {
   }
 }
 variable "vpc_tags" {
+  default = {}
+}
+#IGW tags
+
+variable "igw_tags" {
   default = {}
 }
