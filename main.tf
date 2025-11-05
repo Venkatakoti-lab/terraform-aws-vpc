@@ -26,11 +26,11 @@ resource "aws_internet_gateway" "gw" {
 }
 ##Public_subnets
 resource "aws_subnet" "public" {
-  count      = length(var.public_subnet_cidrs)
-  availability_zone = local.azs_names[count.index]
-  map_public_ip_on_launch= true 
-  vpc_id     = aws_vpc.this.id
-  cidr_block = var.public_subnet_cidrs[count.index]
+  count                   = length(var.public_subnet_cidrs)
+  availability_zone       = local.azs_names[count.index]
+  map_public_ip_on_launch = true
+  vpc_id                  = aws_vpc.this.id
+  cidr_block              = var.public_subnet_cidrs[count.index]
 
   tags = merge(
     var.common_tags,
