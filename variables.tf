@@ -42,7 +42,7 @@ variable "public_subnet_cidrs_tags" {
 variable "private_subnet_cidrs" {
   type = list(any)
   validation {
-    condition = length(var.private_subnet_cidrs) == 2 
+    condition     = length(var.private_subnet_cidrs) == 2
     error_message = "please provide 2 valid private subnets"
   }
 }
@@ -54,7 +54,7 @@ variable "private_subnet_cidrs_tags" {
 variable "database_subnet_cidrs" {
   type = list(any)
   validation {
-    condition = length(var.database_subnet_cidrs) == 2
+    condition     = length(var.database_subnet_cidrs) == 2
     error_message = "Please provide 2 valid database subnets"
   }
 }
@@ -79,7 +79,7 @@ variable "database_route_table_tags" {
 }
 ###peering
 variable "is_peering_required" {
-  type = bool
+  type    = bool
   default = false
 }
 variable "peering_tags" {

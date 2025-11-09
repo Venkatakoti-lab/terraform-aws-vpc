@@ -19,6 +19,6 @@ output "database_subnet_ids" {
 output "default_vpc_info" {
   value = data.aws_vpc.default.id
 }
-output "default_vpc-cidr" {
+output "default_vpc_cidr" {
   value = data.aws_vpc.default.cidr_block
 }
