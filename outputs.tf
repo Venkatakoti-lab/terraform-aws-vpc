@@ -16,3 +16,9 @@ output "private_subnet_ids" {
 output "database_subnet_ids" {
   value = aws_subnet.database[*].id
 }
+output "default_vpc_info" {
+  value = data.aws_vpc.default.id
+}
+output "default_vpc-cidr" {
+  value = data.aws_vpc.default.cidr_block
+}
