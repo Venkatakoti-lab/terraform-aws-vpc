@@ -65,3 +65,15 @@ variable "database_subnet_cidrs_tags" {
 variable "nat_gateway_tags" {
   default = {}
 }
+###public_route_table
+variable "public_route_table_tags" {
+  default = {}
+}
+###private_route_table
+variable "private_route_table_tags" {
+  default = {}
+}
+###database_route_table
+variable "database_route_table_tags" {
+  default = {}
+}

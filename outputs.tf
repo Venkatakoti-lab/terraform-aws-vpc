@@ -2,7 +2,7 @@ output "azs" {
   value = data.aws_availability_zones.zones.names
 }
 output "vpc_id" {
-  value = aws_vpc.main.id
+  value = aws_vpc.this.id
 }
 
 output "public_subnet_ids" {
