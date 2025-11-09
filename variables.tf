@@ -37,3 +37,31 @@ variable "public_subnet_cidrs" {
 variable "public_subnet_cidrs_tags" {
   default = {}
 }
+
+##private_subnets
+variable "private_subnet_cidrs" {
+  type = list(any)
+  validation {
+    condition = length(var.private_subnet_cidrs) == 2 
+    error_message = "please provide 2 valid private subnets"
+  }
+}
+variable "private_subnet_cidrs_tags" {
+  default = {}
+}
+
+##database
+variable "database_subnet_cidrs" {
+  type = list(any)
+  validation {
+    condition = length(var.database_subnet_cidrs) == 2
+    error_message = "Please provide 2 valid database subnets"
+  }
+}
+variable "database_subnet_cidrs_tags" {
+  default = {}
+}
+##nat_gateway
+variable "nat_gateway_tags" {
+  default = {}
+}
