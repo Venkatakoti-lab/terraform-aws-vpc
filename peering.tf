@@ -1,42 +1,48 @@
 resource "aws_vpc_peering_connection" "default" {
-  count       = var.is_peering_required ? 1 : 0
-  peer_vpc_id = data.aws_vpc.default.id #accepter
-  vpc_id      = aws_vpc.this.id         #requestor
-  auto_accept = true
-  tags = merge(
-    var.common_tags,
-    var.peering_tags,
-    {
-      Name = "${local.resource_name}-default"
-    }
+    count= var.is_peering_required ? 1 : 0
+  peer_vpc_id   = local.default_vpc_id
+  vpc_id        = aws_vpc.main.id
+  accepter {
+    allow_remote_vpc_dns_resolution = true
+  }
 
+  requester {
+    allow_remote_vpc_dns_resolution = true
+  }
+  auto_accept   = true
+  tags = merge(
+    var.vpc_peering_tags,
+    local.common_tags,
+    {
+        Name= "${var.project_name}-${var.environment}-default"
+    }
   )
 }
-# public_peering_route
+
+##routes
 resource "aws_route" "public_peering" {
-  count                     = var.is_peering_required ? 1 : 0
+    count = var.is_peering_required ? 1 : 0
   route_table_id            = aws_route_table.public.id
-  destination_cidr_block    = data.aws_vpc.default.cidr_block
+  destination_cidr_block    = data.aws_vpc.default_vpc.cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.default[count.index].id
 }
-#private_peering_route
 resource "aws_route" "private_peering" {
-  count                     = var.is_peering_required ? 1 : 0
+    count = var.is_peering_required ? 1 : 0
   route_table_id            = aws_route_table.private.id
-  destination_cidr_block    = data.aws_vpc.default.cidr_block
+  destination_cidr_block    = data.aws_vpc.default_vpc.cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.default[count.index].id
 }
-#database_peering_route
 resource "aws_route" "database_peering" {
-  count                     = var.is_peering_required ? 1 : 0
+    count = var.is_peering_required ? 1 : 0
   route_table_id            = aws_route_table.database.id
-  destination_cidr_block    = data.aws_vpc.default.cidr_block
+  destination_cidr_block    = data.aws_vpc.default_vpc.cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.default[count.index].id
 }
-#default_peering_route
+
+###we should add routes to default route table aswell
 resource "aws_route" "default_peering" {
-  count                     = var.is_peering_required ? 1 : 0
-  route_table_id            = data.aws_vpc.default.main_route_table_id
-  destination_cidr_block    = var.vpc_cidr
+    count = var.is_peering_required ? 1 : 0
+  route_table_id            = data.aws_route_table.main.id
+  destination_cidr_block    = var.cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.default[count.index].id
 }
