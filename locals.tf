@@ -1,4 +1,9 @@
 locals {
-  resource_name = "${var.project}-${var.environment}"
-  azs_names     = slice(data.aws_availability_zones.zones.names, 0, 2)
+  common_tags={
+    Project= var.project_name
+    Environment= var.environment
+    Terraform= true
+  }
+  az_names= slice(data.aws_availability_zones.available.names, 0,2)
+  default_vpc_id= data.aws_vpc.default_vpc.id
 }
