@@ -1,87 +1,58 @@
-variable "project" {
-
-}
-variable "environment" {
-
-}
-variable "vpc_cidr" {
-
-}
-variable "enable_dns_hostnames" {
-  type    = bool
-  default = true
+variable "cidr_block" {
+  default = "10.0.0.0/16"
 }
 variable "common_tags" {
-  default = {
-
-  }
-}
-variable "vpc_tags" {
   default = {}
 }
-#IGW tags
-
+variable "project_name" {
+  
+}
+variable "environment" {
+  
+}
+variable "vpc_tags" {
+  type = map(string)
+  default = {}
+}
 variable "igw_tags" {
   default = {}
 }
-
-## Public_subnets
 variable "public_subnet_cidrs" {
-  type = list(any)
-  validation {
-    condition     = length(var.public_subnet_cidrs) == 2
-    error_message = "Please provide 2 valid public subnets"
-  }
+  default = []
 }
-
-variable "public_subnet_cidrs_tags" {
+variable "public_subnet_tags" {
   default = {}
 }
-
-##private_subnets
 variable "private_subnet_cidrs" {
-  type = list(any)
-  validation {
-    condition     = length(var.private_subnet_cidrs) == 2
-    error_message = "please provide 2 valid private subnets"
-  }
+  default = []
 }
-variable "private_subnet_cidrs_tags" {
+variable "private_subnet_tags" {
   default = {}
 }
-
-##database
 variable "database_subnet_cidrs" {
-  type = list(any)
-  validation {
-    condition     = length(var.database_subnet_cidrs) == 2
-    error_message = "Please provide 2 valid database subnets"
-  }
+  default = []
 }
-variable "database_subnet_cidrs_tags" {
+variable "database_subnet_tags" {
   default = {}
 }
-##nat_gateway
+variable "eip_tags" {
+  default = {}
+}
 variable "nat_gateway_tags" {
   default = {}
 }
-###public_route_table
-variable "public_route_table_tags" {
+variable "public_route_tags" {
   default = {}
 }
-###private_route_table
-variable "private_route_table_tags" {
+variable "private_route_tags" {
   default = {}
 }
-###database_route_table
-variable "database_route_table_tags" {
+variable "database_route_tags" {
   default = {}
 }
-###peering
 variable "is_peering_required" {
-  type    = bool
   default = false
 }
-variable "peering_tags" {
+variable "vpc_peering_tags" {
   default = {}
 }
