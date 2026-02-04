@@ -5,5 +5,5 @@ locals {
     Terraform= true
   }
   az_names= slice(data.aws_availability_zones.available.names, 0,2)
-  default_vpc_id= data.aws_vpc.default_vpc.id
+  default_vpc_id= data.aws_vpc.default.id
 }
