@@ -7,3 +7,12 @@ output "vpc_info" {
 # output "default_vpc_id" {
 #   value = data.aws_vpc.default_vpc
 # }
+output "public_subnet_ids" {
+  value = aws_subnet.public[*].id
+}
+output "private_subnet_ids" {
+  value = aws_subnet.private[*].id
+}
+output "database_subnet_ids" {
+  value = aws_subnet.database[*].id
+}
